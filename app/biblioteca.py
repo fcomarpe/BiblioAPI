@@ -5,6 +5,14 @@ class Biblioteca:
     def __init__(self):
         self.lista = []
 
+        catalogo = [
+            libro.Libro("Harry Potter", "J.K. Rowling", 1997),
+            libro.Libro("Nacidos de la bruma", "Brandon Sanderson", 2006),
+            libro.Libro("El Principito", "Antoine de Saint-Exupéry", 1943),
+        ]
+        for libro_actual in catalogo:
+            self.agregar_libro(libro_actual)
+
     def agregar_libro(self, libro):
         self.lista.append(libro)
 
@@ -18,12 +26,4 @@ class Biblioteca:
         return self.buscar_libro(titulo_devuelto)
 
     def ver_catalogo(self):
-        catalogo = [
-            libro.Libro("Harry Potter", "J.K. Rowling", 1997),
-            libro.Libro("Nacidos de la bruma", "Brandon Sanderson", 2006),
-            libro.Libro("El Principito", "Antoine de Saint-Exupéry", 1943),
-        ]
-        for libro_actual in catalogo:
-            self.agregar_libro(libro_actual)
-
         return self.lista
