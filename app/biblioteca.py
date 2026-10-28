@@ -47,3 +47,15 @@ class Biblioteca:
         else:
             estado.disponible = True
             return estado
+
+    def estadisticas_biblioteca(self):
+        disponibles = 0
+        prestados = 0
+
+        for libro_actual in self.lista:
+            if libro_actual.disponible:
+                disponibles += 1
+            else:
+                prestados += 1
+
+        return len(self.lista), disponibles, prestados

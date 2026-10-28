@@ -45,6 +45,16 @@ def read_buscar(titulo: str):
         return {"mensaje": "No se ha encontrado el libro."}
 
 
+@app.get("/estadisticas")
+def read_estadisticas():
+    total, disponibles, prestados = mi_catalogo.estadisticas_biblioteca()
+    return {
+        "Total libros": total,
+        "Disponibles": disponibles,
+        "Prestados": prestados,
+    }
+
+
 @app.post("/agregar_libro")
 def read_aniadir(datos_libro: LibroEntrante):
     nuevo_libro = libro.Libro(
