@@ -23,6 +23,19 @@ def read_libros():
     return mi_catalogo.ver_catalogo()
 
 
+@app.get("/libros/buscar")
+def read_buscar(titulo: str):
+    existe = mi_catalogo.buscar_libro(titulo)
+    if existe:
+        return {
+            "titulo": existe.titulo,
+            "autor": existe.autor,
+            "anio": existe.anio,
+        }
+    else:
+        return {"mensaje": "No se ha encontrado el libro."}
+
+
 @app.post("/agregar_libro")
 def read_aniadir(datos_libro: LibroEntrante):
     nuevo_libro = libro.Libro(
