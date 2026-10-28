@@ -13,6 +13,9 @@ class Biblioteca:
         for libro_actual in catalogo:
             self.agregar_libro(libro_actual)
 
+    def ver_catalogo(self):
+        return self.lista
+
     def agregar_libro(self, libro):
         self.lista.append(libro)
 
@@ -22,8 +25,15 @@ class Biblioteca:
                 return libro_buscado
         return None
 
+    def prestar_libro(self, titulo_buscado):
+        estado = self.buscar_libro(titulo_buscado)
+        if not estado:
+            return "no_encontrado"
+        elif not estado.disponible:
+            return "ya_prestado"
+        else:
+            estado.disponible = False
+            return estado
+
     def devolver_libro(self, titulo_devuelto):
         return self.buscar_libro(titulo_devuelto)
-
-    def ver_catalogo(self):
-        return self.lista

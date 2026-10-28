@@ -13,6 +13,10 @@ class LibroEntrante(BaseModel):
     anio: int
 
 
+class PrestamoEntrante(BaseModel):
+    titulo: str
+
+
 @app.get("/")
 def read_root():
     return {"mensaje": "API de biblioteca funcionando"}
@@ -26,6 +30,7 @@ def read_libros():
 @app.get("/libros/buscar")
 def read_buscar(titulo: str):
     existe = mi_catalogo.buscar_libro(titulo)
+
     if existe:
         return {
             "titulo": existe.titulo,
@@ -34,6 +39,23 @@ def read_buscar(titulo: str):
         }
     else:
         return {"mensaje": "No se ha encontrado el libro."}
+
+
+@app.post("/libros/prestar")
+def read_prestar(datos_prestamo: PrestamoEntrante):
+    estado = mi_catalogo.prestar_libro(datos_prestamo.titulo)
+
+    if estado == "no_encontrado":
+        return {"mensaje": "El título no existe."}
+    elif estado == "ya_prestado":
+        return {"mensaje": "El título que busca no está disponible."}
+    else:
+        return {
+            "titulo": estado.titulo,
+            "autor": estado.autor,
+            "anio": estado.anio,
+            "disponible": estado.disponible,
+        }
 
 
 @app.post("/agregar_libro")
