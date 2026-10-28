@@ -10,6 +10,7 @@ class Biblioteca:
             libro.Libro("Nacidos de la bruma", "Brandon Sanderson", 2006),
             libro.Libro("El Principito", "Antoine de Saint-Exupéry", 1943),
         ]
+
         for libro_actual in catalogo:
             self.agregar_libro(libro_actual)
 
@@ -27,6 +28,7 @@ class Biblioteca:
 
     def prestar_libro(self, titulo_buscado):
         estado = self.buscar_libro(titulo_buscado)
+
         if not estado:
             return "no_encontrado"
         elif not estado.disponible:
@@ -36,4 +38,12 @@ class Biblioteca:
             return estado
 
     def devolver_libro(self, titulo_devuelto):
-        return self.buscar_libro(titulo_devuelto)
+        estado = self.buscar_libro(titulo_devuelto)
+
+        if not estado:
+            return "no_encontrado"
+        elif estado.disponible:
+            return "ya_devuelto"
+        else:
+            estado.disponible = True
+            return estado
